@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Usuarios from '../views/Usuarios.vue'
+import Permissao from '../views/Permissao.vue'
+import GrupoUsuario from '../views/GrupoUsuario.vue'
+import UsuarioNovo from '../views/create/UsuarioNovo.vue'
+import UsuarioEditar from '../views/edit/UsuarioEditar.vue'
 
 Vue.use(VueRouter)
 
@@ -9,6 +14,31 @@ Vue.use(VueRouter)
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/Usuarios',
+    name: 'Usuarios',
+    component: Usuarios
+  },
+  {
+    path: '/Usuarios/Novo',
+    name: 'Usuarios/Novo',
+    component: UsuarioNovo
+  },
+  {
+    path: '/Usuarios/Editar/:id',
+    name: 'Usuario/Editar',
+    component: UsuarioEditar
+  },
+  {
+    path: '/Permissao',
+    name: 'Permissao',
+    component: Permissao
+  },
+  {
+    path: '/GrupoUsuario',
+    name: 'GrupoUsuario',
+    component: GrupoUsuario
   },
   {
     path: '/about',
