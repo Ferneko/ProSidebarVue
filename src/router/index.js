@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Usuarios from '../views/Usuarios.vue'
-import Permissao from '../views/Permissao.vue'
-import GrupoUsuario from '../views/GrupoUsuario.vue'
+import Usuarios from '../views/list/Usuarios.vue'
+import Permissao from '../views/list/Permissao.vue'
+import GrupoUsuario from '../views/list/GrupoUsuario.vue'
 import UsuarioNovo from '../views/create/UsuarioNovo.vue'
 import UsuarioEditar from '../views/edit/UsuarioEditar.vue'
 

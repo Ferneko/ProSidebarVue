@@ -54,20 +54,19 @@
      </tr>
     </tbody>
 </table>
-<Paginator :rows="2" :totalRecords="dados.length"></Paginator>
+
 
   
   </Layout>
 </template>
 
 <script>
-import Paginator from 'primevue/paginator';
-import InputText from "primevue/inputtext";
-import Conexao from "../Conexao.js";
-import Toolbar from 'primevue/toolbar'
-import "../../node_modules/primevue/resources/themes/saga-blue/theme.css"; //theme
-import "../../node_modules/primevue/resources/primevue.min.css"; //core css
-import "../../node_modules/primeicons/primeicons.css";
+import Conexao from "../../Conexao.js";
+import Toolbar from "primevue/toolbar"
+import InputText from "primevue/inputtext"
+import "../../../node_modules/primevue/resources/themes/saga-blue/theme.css"; //theme
+import "../../../node_modules/primevue/resources/primevue.min.css"; //core css
+import "../../../node_modules/primeicons/primeicons.css";
 export default {
   data() {
     return {
@@ -94,7 +93,7 @@ export default {
     this.loading = false;
   },
   components: {
-    Paginator,
+   
     Toolbar,
   
     InputText,
