@@ -1,12 +1,15 @@
 <template>
-  <div class="page-wrapper chiller-theme" v-bind:class="{ toggled: this.toggle }">
+  <div
+    class="page-wrapper chiller-theme"
+    v-bind:class="{ toggled: this.toggle }"
+  >
     <div id="show-sidebar" class="btn btn-sm btn-dark" @click="toggleSidebar">
       <i class="fas fa-bars"></i>
     </div>
     <nav id="sidebar" class="sidebar-wrapper">
       <div class="sidebar-content">
         <div class="sidebar-brand">
-          <a href="#">pro sidebar</a>
+          <a href="#">Sistema</a>
           <div id="close-sidebar" @click="toggleSidebar">
             <i class="fas fa-times"></i>
           </div>
@@ -21,8 +24,7 @@
           </div>
           <div class="user-info">
             <span class="user-name">
-              Jhon
-              <strong>Smith</strong>
+              {{ this.nome }}
             </span>
             <span class="user-role">
               <i class="fa fa-user"></i>
@@ -30,7 +32,7 @@
             </span>
             <span class="user-status">
               <i class="fa fa-sign-out-alt"></i>
-              <span>Logoff</span>
+              <span @click="logoff" style="cursor: pointer">Logoff</span>
             </span>
           </div>
         </div>
@@ -38,9 +40,29 @@
 
         <div class="sidebar-menu">
           <ul>
-            <itemMenu texto="Usuários" path="/Usuarios" icone="fa fa-user" />
-            <itemMenu texto="Permissões" path="/Permissao" icone="fa fa-user-cog" />
-            <itemMenu texto="Grupos de Usuários" path="/GrupoUsuario" icone="fa fa-user-cog" />
+           
+            <itemMenu
+              v-if="this.verificaMenu('acessarUsuario')"
+              texto="Usuários"
+              path="/Usuarios"
+              icone="fa fa-user"
+            />
+           
+           
+            <itemMenu
+             v-if="this.verificaMenu('acessarPermissao')"
+              texto="Permissões"
+              path="/Permissao"
+              icone="fa fa-user-cog"
+              role="acessarPermissao"
+            />
+            <itemMenu
+             v-if="this.verificaMenu('acessarGrupoUsuario')"
+              texto="Grupos de Usuários"
+              path="/GrupoUsuario"
+              icone="fa fa-user-cog"
+              role="acessarGrupoUsuario"
+            />
           </ul>
         </div>
         <!-- sidebar-menu  -->
@@ -71,15 +93,7 @@
 
         <footer class="text-center">
           <div class="mb-2">
-            <small>
-              © 2020 made with
-              <i class="fa fa-heart" style="color:red"></i> by -
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://azouaoui.netlify.com"
-              >Mohamed Azouaoui</a>
-            </small>
+            <small> <i class="fa fa-heart" style="color: red"></i> by - </small>
           </div>
         </footer>
       </div>
@@ -89,26 +103,23 @@
 
 <script>
 import itemMenu from "./components/itemMenu";
+import Conexao from "./Conexao";
 export default {
   data() {
     return {
       home: { icon: "pi pi-home", to: "/" },
+      nome: localStorage.getItem("Nome"),
+      email: "",
+      login: localStorage.getItem("Login"),
+      usuarioId: localStorage.getItem("UsuarioId"),
       items: [],
       toggle: true,
-      subMenuTeste: [
-        {
-          path: "/ok",
-          texto: "/linkOk",
-        },
-        {
-          path: "/ok",
-          texto: "/linkOk",
-        },
-      ],
     };
   },
   mounted: function () {
     this.createBreadcrumb();
+
+    
   },
   methods: {
     toggleSidebar() {
@@ -118,6 +129,19 @@ export default {
       let rota = this.$route.name.split("/");
       for (let i = 0; i < rota.length; i++) {
         this.items.push({ label: rota[i] });
+      }
+    },
+    logoff() {
+      localStorage.clear();
+      this.$router.push("/login");
+    },
+    verificaMenu(nomeRole) {
+      if (localStorage.getItem(nomeRole) === null) {
+        //console.log(nomeRole+" | false")
+        return false;
+      }else{
+         //console.log(nomeRole+" | true")
+      return true;
       }
     },
   },

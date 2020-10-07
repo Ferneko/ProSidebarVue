@@ -1,5 +1,6 @@
 <template >
-  <li v-if="this.subMenu == null">
+
+   <li v-if="this.subMenu == null">
     <router-link :to="this.path">
       <i :class="icone"></i>
       <span>{{this.texto}}</span>
@@ -20,13 +21,14 @@
       </ul>
     </div>
   </li>
+
 </template> 
 
 <script>
 export default {
-  props: ["texto", "path", "icone", "subMenu"],
+  props: ["texto", "path", "icone", "subMenu","role"],
   mounted: function () {
-    console.log();
+    
   },
   data() {
     return {
@@ -37,7 +39,6 @@ export default {
   },
   methods: {
     abreMenu() {
-      console.log(this.open);
       if (this.aberto) {
         this.display = "none";
         this.aberto = false;
