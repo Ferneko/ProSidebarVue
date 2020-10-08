@@ -104,7 +104,7 @@ export default {
     logar() {
       Conexao.post("/Login", { login: this.login, senha: this.senha })
         .then((resposta) => {
-          console.log(resposta);
+          //console.log(resposta);
           //  this.resposta = resposta.data.mensagem;
 
           if (resposta.data.isOk) {
@@ -117,7 +117,7 @@ export default {
               localStorage.setItem(value, value);
             });
             
-            console.log(resposta.data.dados.roles);
+            //console.log(resposta.data.dados.roles);
             this.$router.push('/')
           } else {
             this.erro = true;

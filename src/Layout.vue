@@ -23,13 +23,16 @@
             />
           </div>
           <div class="user-info">
+           
             <span class="user-name">
               {{ this.nome }}
             </span>
+             <router-link to="/trocarSenha">
             <span class="user-role">
               <i class="fa fa-user"></i>
               Perfil
             </span>
+            </router-link>
             <span class="user-status">
               <i class="fa fa-sign-out-alt"></i>
               <span @click="logoff" style="cursor: pointer">Logoff</span>
@@ -62,6 +65,27 @@
               path="/GrupoUsuario"
               icone="fa fa-user-cog"
               role="acessarGrupoUsuario"
+            />
+             <itemMenu
+             
+              texto="Projetos"
+              path="/Projetos"
+              icone="fa fa-project-diagram"
+              
+            />
+             <itemMenu
+             
+              texto="Meus Projetos"
+              path="/"
+              icone="fa fa-project-diagram"
+              
+            />
+             <itemMenu
+             
+              texto="Tarefas"
+              path="/Tarefas"
+              icone="fa fa-tasks"
+              
             />
           </ul>
         </div>
@@ -118,7 +142,7 @@ export default {
   },
   mounted: function () {
     this.createBreadcrumb();
-
+    //console.log(localStorage)
     
   },
   methods: {

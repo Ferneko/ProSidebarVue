@@ -77,8 +77,9 @@ export default {
           }
         })
         .catch((e) => {
-             this.erro = true;
-          this.mensagem = "Catch: "+e;
+          console.log(e);
+              this.erro = true;
+              this.mensagem = "Catch: "+e;
         });
     },
   },

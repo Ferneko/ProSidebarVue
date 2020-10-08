@@ -131,14 +131,17 @@ export default {
     startData(){
  Conexao.get("/Usuarios")
       .then((resposta) => {
+       
         if (resposta.data.isOk) {
           this.dados = resposta.data.dados;
         } else {
           console.log(resposta.data.mensagem);
         }
       })
-      .catch((resposta) => {
-        //console.log(resposta);
+      .catch((e) => {
+         console.log(e.response);
+         console.log(e.toJSON());
+      
       });
     },
     removerUsuario(item) {
@@ -168,7 +171,7 @@ export default {
           }
         })
         .catch((e) => {
-          this.isOk = true;
+          this.erro = true;
           this.mensagem = "Catch: " + e;
         });
     },
@@ -184,7 +187,7 @@ export default {
           }
         })
         .catch((e) => {
-          this.isOk = true;
+          this.erro = true;
           this.mensagem = "Catch: " + e;
         });
     },

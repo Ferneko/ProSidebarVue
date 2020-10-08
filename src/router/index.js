@@ -6,6 +6,8 @@ import Permissao from '../views/list/Permissao.vue'
 import PermissaoUsuario from '../views/list/PermissaoUsuario.vue'
 import PermissoesGrupoUsuario from '../views/list/PermissaoGrupoUsuario.vue'
 import UsuarioGrupoUsuario from '../views/list/UsuarioGrupoUsuario.vue'
+import Projetos from '../views/list/Projetos.vue'
+import Tarefas from '../views/list/Tarefas.vue'
 import GrupoUsuario from '../views/list/GrupoUsuario.vue'
 import UsuarioNovo from '../views/create/UsuarioNovo.vue'
 import PermissaoCadastro from '../views/create/PermissaoCadastro.vue'
@@ -14,6 +16,7 @@ import UsuarioEditar from '../views/edit/UsuarioEditar.vue'
 import GrupoUsuarioEditar from '../views/edit/GrupoUsuarioEditar.vue'
 import PermissaoEditar from '../views/edit/PermissaoEditar.vue'
 import Login from '../views/Login.vue'
+import trocarSenha from '../views/perfil/trocarSenha.vue'
 import NaoAutorizado from '../views/NaoAutorizado.vue'
 
 
@@ -37,6 +40,42 @@ const routes = [
       } else {
         next('/login');
       }
+    }
+  },
+  {
+    path: '/Projetos',
+    name: 'Projetos',
+    component: Projetos,
+    beforeEnter(to, from, next) {
+      /*
+      if (TemToken()) {
+        if (TemAutorizacao("acessarUsuario")) {
+          next();
+        }else{
+          next("/NaoAutorizado");
+        }
+      } else {
+        next('/login');
+      }
+      */ next();
+    }
+  },
+  {
+    path: '/Tarefas',
+    name: 'Tarefas',
+    component: Tarefas,
+    beforeEnter(to, from, next) {
+      /*
+      if (TemToken()) {
+        if (TemAutorizacao("acessarUsuario")) {
+          next();
+        }else{
+          next("/NaoAutorizado");
+        }
+      } else {
+        next('/login');
+      }
+      */ next();
     }
   },
   {
@@ -172,6 +211,24 @@ const routes = [
       /*
       if (TemToken()) {
         if (TemAutorizacao("acessarPermissaoUsuario")) {
+          next();
+        }else{
+          next("/NaoAutorizado");
+        }
+      } else {
+        next('/login');
+      }
+      */next();
+    }
+  },
+  {
+    path: '/trocarSenha',
+    name: 'Trocar Senha',
+    component: trocarSenha,
+    beforeEnter(to, from, next) {
+      /*
+      if (TemToken()) {
+        if (TemAutorizacao("novoUsuario")) {
           next();
         }else{
           next("/NaoAutorizado");
