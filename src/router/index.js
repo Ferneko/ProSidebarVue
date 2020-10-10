@@ -7,12 +7,19 @@ import PermissaoUsuario from '../views/list/PermissaoUsuario.vue'
 import PermissoesGrupoUsuario from '../views/list/PermissaoGrupoUsuario.vue'
 import UsuarioGrupoUsuario from '../views/list/UsuarioGrupoUsuario.vue'
 import Projetos from '../views/list/Projetos.vue'
+import ProjetosNovo from '../views/create/ProjetosCadastro.vue'
+import ProjetosEditar from '../views/edit/ProjetosEditar.vue'
+import TarefaCadastro from '../views/create/TarefaCadastro.vue'
+import TarefaEditar from '../views/edit/TarefaEditar.vue'
+
 import Tarefas from '../views/list/Tarefas.vue'
 import GrupoUsuario from '../views/list/GrupoUsuario.vue'
 import UsuarioNovo from '../views/create/UsuarioNovo.vue'
 import PermissaoCadastro from '../views/create/PermissaoCadastro.vue'
 import GrupoUsuarioCadastro from '../views/create/GrupoUsuarioCadastro.vue'
 import UsuarioEditar from '../views/edit/UsuarioEditar.vue'
+import EditarSenhaUsuario from '../views/edit/EditarSenhaUsuario.vue'
+
 import GrupoUsuarioEditar from '../views/edit/GrupoUsuarioEditar.vue'
 import PermissaoEditar from '../views/edit/PermissaoEditar.vue'
 import Login from '../views/Login.vue'
@@ -61,9 +68,118 @@ const routes = [
     }
   },
   {
-    path: '/Tarefas',
+    path: '/Projetos/Novo',
+    name: 'Projetos/Novo',
+    component: ProjetosNovo,
+    beforeEnter(to, from, next) {
+      /*
+      if (TemToken()) {
+        if (TemAutorizacao("acessarUsuario")) {
+          next();
+        }else{
+          next("/NaoAutorizado");
+        }
+      } else {
+        next('/login');
+      }
+      */ next();
+    }
+  },
+  {
+    path: '/Projetos/Editar/:id',
+    name: 'Projetos/Editar',
+    component: ProjetosEditar,
+    beforeEnter(to, from, next) {
+      /*
+      if (TemToken()) {
+        if (TemAutorizacao("acessarUsuario")) {
+          next();
+        }else{
+          next("/NaoAutorizado");
+        }
+      } else {
+        next('/login');
+      }
+      */ next();
+    }
+  },
+
+  {
+    path: '/Tarefas/Projetos/:id',
     name: 'Tarefas',
     component: Tarefas,
+    beforeEnter(to, from, next) {
+      /*
+      if (TemToken()) {
+        if (TemAutorizacao("acessarUsuario")) {
+          next();
+        }else{
+          next("/NaoAutorizado");
+        }
+      } else {
+        next('/login');
+      }
+      */ next();
+    }
+  },
+  {
+    path: '/Tarefas/',
+    name: 'Tarefas/',
+    component: Tarefas,
+    beforeEnter(to, from, next) {
+      /*
+      if (TemToken()) {
+        if (TemAutorizacao("acessarUsuario")) {
+          next();
+        }else{
+          next("/NaoAutorizado");
+        }
+      } else {
+        next('/login');
+      }
+      */ next();
+    }
+  },
+  {
+    path: '/Tarefas/Novo',
+    name: 'Tarefas/Nova',
+    component: TarefaCadastro,
+    beforeEnter(to, from, next) {
+      /*
+      if (TemToken()) {
+        if (TemAutorizacao("acessarUsuario")) {
+          next();
+        }else{
+          next("/NaoAutorizado");
+        }
+      } else {
+        next('/login');
+      }
+      */ next();
+    }
+  },
+  {
+    path: '/Tarefas/Editar/:id',
+    name: 'Tarefas/Editar',
+    component: TarefaEditar,
+    beforeEnter(to, from, next) {
+      /*
+      if (TemToken()) {
+        if (TemAutorizacao("acessarUsuario")) {
+          next();
+        }else{
+          next("/NaoAutorizado");
+        }
+      } else {
+        next('/login');
+      }
+      */ next();
+    }
+  },
+  {
+    path: '/Tarefas/Novo/:id',
+    name: 'Tarefas/Projeto/Novo',
+    component: TarefaCadastro,
     beforeEnter(to, from, next) {
       /*
       if (TemToken()) {
@@ -86,7 +202,23 @@ const routes = [
       if (TemToken()) {
         if (TemAutorizacao("acessarUsuario")) {
           next();
-        }else{
+        } else {
+          next("/NaoAutorizado");
+        }
+      } else {
+        next('/login');
+      }
+    }
+  },
+  {
+    path: '/Usuarios/AlterarSenha/:id',
+    name: 'Usuarios/Alterar Senha',
+    component: EditarSenhaUsuario,
+    beforeEnter(to, from, next) {
+      if (TemToken()) {
+        if (TemAutorizacao("acessarUsuario")) {
+          next();
+        } else {
           next("/NaoAutorizado");
         }
       } else {
@@ -184,7 +316,7 @@ const routes = [
       */next();
     }
   },
-  
+
   {
     path: '/UsuarioGrupoUsuario/:id',
     name: 'Usuario/GrupoUsuario',
@@ -265,7 +397,7 @@ const routes = [
       if (TemToken()) {
         if (TemAutorizacao("acessarUsuario")) {
           next();
-        }else{
+        } else {
           next("/NaoAutorizado");
         }
       } else {
@@ -281,7 +413,7 @@ const routes = [
       if (TemToken()) {
         if (TemAutorizacao("acessarPermissao")) {
           next();
-        }else{
+        } else {
           next("/NaoAutorizado");
         }
       } else {
@@ -297,7 +429,7 @@ const routes = [
       if (TemToken()) {
         if (TemAutorizacao("acessarGrupoUsuario")) {
           next();
-        }else{
+        } else {
           next("/NaoAutorizado");
         }
       } else {
@@ -312,7 +444,7 @@ const routes = [
     component: NaoAutorizado,
     beforeEnter(to, from, next) {
       if (TemToken()) {
-          next();
+        next();
       } else {
         next('/login');
       }
@@ -321,7 +453,7 @@ const routes = [
 ]
 
 function TemToken() {
-  if (localStorage.getItem("TokenJWT") === null) {
+  if (sessionStorage.getItem("TokenJWT") === null) {
     //console.log("Não Tem Token")
     return false;
   } else {
@@ -332,13 +464,13 @@ function TemToken() {
 }
 
 function TemAutorizacao(role) {
-  //console.log(localStorage.getItem(role)+" teste");
-  if (localStorage.getItem(role) === null) {
+  //console.log(sessionStorage.getItem(role)+" teste");
+  if (sessionStorage.getItem(role) === null) {
     //console.log("Não tem role");
     return false;
 
   } else {
-    if (localStorage.getItem(role) == role) {
+    if (sessionStorage.getItem(role) == role) {
       //console.log("Tem Role")
       return true;
     } else {
@@ -354,18 +486,25 @@ const router = new VueRouter({
 })
 
 
-/*
+
 router.beforeEach((to, from, next) => {
- 
- if (TemToken()) {
-   next('/login');
- }
- 
- else{
-   console.log("Caiu aqui")
-   next()
- }
- 
+  //console.log(TemToken());
+  if (TemToken()) {
+    if (to.path.toLowerCase() == '/login') {
+        next('/')
+    }else{
+        next()
+    }
+  }
+
+  else {
+    if (to.path == '/login') {
+      next();
+    } else {
+      next('/login');
+    }
+  }
+
 })
-*/
+
 export default router

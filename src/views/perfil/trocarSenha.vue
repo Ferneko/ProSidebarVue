@@ -34,7 +34,7 @@ import Conexao from "../../Conexao.js";
 export default {
   data() {
     return {
-      id: Number(localStorage.getItem("UsuarioId")),
+      id: Number(sessionStorage.getItem("UsuarioId")),
       senhaAtual: "",
       senhaNova: "",
       confirmacao: "",
@@ -54,7 +54,7 @@ export default {
         .then((response) => {
           if (response.data.isOk) {
             alert(response.data.mensagem);
-            localStorage.clear();
+            sessionStorage.clear();
             window.location = '/login';
           } else {
             this.erro = true;

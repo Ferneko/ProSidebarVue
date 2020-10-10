@@ -112,12 +112,12 @@
     </nav>
     <main class="page-content">
       <div class="container-fluid">
-        <Breadcrumb :home="home" :model="items" />
+       
         <slot />
 
         <footer class="text-center">
           <div class="mb-2">
-            <small> <i class="fa fa-heart" style="color: red"></i> by - </small>
+            <small>  </small>
           </div>
         </footer>
       </div>
@@ -132,17 +132,17 @@ export default {
   data() {
     return {
       home: { icon: "pi pi-home", to: "/" },
-      nome: localStorage.getItem("Nome"),
+      nome: sessionStorage.getItem("Nome"),
       email: "",
-      login: localStorage.getItem("Login"),
-      usuarioId: localStorage.getItem("UsuarioId"),
+      login: sessionStorage.getItem("Login"),
+      usuarioId: sessionStorage.getItem("UsuarioId"),
       items: [],
       toggle: true,
     };
   },
   mounted: function () {
     this.createBreadcrumb();
-    //console.log(localStorage)
+    //console.log(sessionStorage)
     
   },
   methods: {
@@ -156,11 +156,15 @@ export default {
       }
     },
     logoff() {
+      sessionStorage.clear();
       localStorage.clear();
-      this.$router.push("/login");
+
+      window.location.reload(true);
+       //this.$router.push("/login");
+     
     },
     verificaMenu(nomeRole) {
-      if (localStorage.getItem(nomeRole) === null) {
+      if (sessionStorage.getItem(nomeRole) === null) {
         //console.log(nomeRole+" | false")
         return false;
       }else{

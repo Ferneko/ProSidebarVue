@@ -108,17 +108,17 @@ export default {
           //  this.resposta = resposta.data.mensagem;
 
           if (resposta.data.isOk) {
-            localStorage.setItem("TokenJWT", resposta.data.dados.token);
-            localStorage.setItem("UsuarioId", resposta.data.dados.usuarioId);
-            localStorage.setItem("Nome", resposta.data.dados.nome);
-            localStorage.setItem("Login", resposta.data.dados.login);
+            sessionStorage.setItem("TokenJWT", resposta.data.dados.token);
+            sessionStorage.setItem("UsuarioId", resposta.data.dados.usuarioId);
+            sessionStorage.setItem("Nome", resposta.data.dados.nome);
+            sessionStorage.setItem("Login", resposta.data.dados.login);
 
             resposta.data.dados.roles.map(function (value, key) {
-              localStorage.setItem(value, value);
+              sessionStorage.setItem(value, value);
             });
-            
+            location.reload();
             //console.log(resposta.data.dados.roles);
-            this.$router.push('/')
+            //this.$router.push('/')
           } else {
             this.erro = true;
             this.mensagem = resposta.data.mensagem;

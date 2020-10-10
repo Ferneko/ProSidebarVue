@@ -4,7 +4,9 @@
       <div class="card-header">
         <div class="row">
           <div class="col-2">
-             <router-link to="/Usuarios/Novo" class="btn btn-success">Novo Usuário</router-link>
+            <router-link to="/Usuarios/Novo" class="btn btn-success"
+              >Novo Usuário</router-link
+            >
           </div>
           <div class="col-10">
             <div class="input-group mb-3">
@@ -16,9 +18,7 @@
                 aria-describedby="basic-addon2"
               />
               <div class="input-group-append">
-                <button class="btn btn-outline-secondary" >
-                  Buscar
-                </button>
+                <button class="btn btn-outline-secondary">Buscar</button>
               </div>
             </div>
           </div>
@@ -54,6 +54,20 @@
               </router-link>
 
               <router-link
+                :to="{ path: '/Usuarios/AlterarSenha/' + item.id }"
+                @click="
+                  () => {
+                    console.log(item);
+                  }
+                "
+                class="btn btn-sm btn-warning"
+                style="margin: 0 5px"
+              >
+                <i class="pi pi-user-edit" />
+                Alterar senha
+              </router-link>
+
+              <router-link
                 :to="{ path: '/PermissaoUsuario/' + item.id }"
                 class="btn btn-sm btn-info"
                 style="margin: 0 5px"
@@ -69,7 +83,8 @@
                 <i class="pi pi-users" />
                 Grupos
               </router-link>
-              <div v-if="item.ativo"
+              <div
+                v-if="item.ativo"
                 @click="desativar(item)"
                 class="btn btn-sm btn-primary"
                 style="margin: 0 5px"
@@ -77,7 +92,8 @@
                 <i class="pi pi-eye pi-eye-slash" />
                 Desativar
               </div>
-               <div v-else
+              <div
+                v-else
                 @click="ativar(item)"
                 class="btn btn-sm btn-primary"
                 style="margin: 0 5px"
@@ -124,25 +140,24 @@ export default {
   },
   beforeCreated() {},
   mounted() {
-   this.startData();
+    this.startData();
   },
   components: {},
   methods: {
-    startData(){
- Conexao.get("/Usuarios")
-      .then((resposta) => {
-       
-        if (resposta.data.isOk) {
-          this.dados = resposta.data.dados;
-        } else {
-          console.log(resposta.data.mensagem);
-        }
-      })
-      .catch((e) => {
-         console.log(e.response);
-         console.log(e.toJSON());
-      
-      });
+    startData() {
+      Conexao.get("/Usuarios")
+        .then((resposta) => {
+          if (resposta.data.isOk) {
+            this.dados = resposta.data.dados;
+          } else {
+            this.erro = true;
+            this.mensagem = resposta.data.mensagem;
+          }
+        })
+        .catch((e) => {
+          this.erro = true;
+          this.mensagem = e;
+        });
     },
     removerUsuario(item) {
       Conexao.delete("/Usuarios/" + item.id)
@@ -155,19 +170,18 @@ export default {
           }
         })
         .catch((error) => {
-           this.erro = true;
-            this.mensagem = error
+          this.erro = true;
+          this.mensagem = error;
         });
     },
     desativar(item) {
-       Conexao
-        .put("/Usuarios/desativaUsuario", {id:item.id})
+      Conexao.put("/Usuarios/desativaUsuario", { id: item.id })
         .then((response) => {
           if (response.data.isOk) {
             item.ativo = response.data.dados.ativo;
-          }else{
-              this.isOk = true;
-              this.mensagem = response.data.mensagem
+          } else {
+            this.isOk = true;
+            this.mensagem = response.data.mensagem;
           }
         })
         .catch((e) => {
@@ -176,14 +190,13 @@ export default {
         });
     },
     ativar(item) {
-        Conexao
-        .put("/Usuarios/ativaUsuario", {id:item.id})
+      Conexao.put("/Usuarios/ativaUsuario", { id: item.id })
         .then((response) => {
           if (response.data.isOk) {
             item.ativo = response.data.dados.ativo;
-          }else{
-              this.isOk = true;
-              this.mensagem = response.data.mensagem
+          } else {
+            this.isOk = true;
+            this.mensagem = response.data.mensagem;
           }
         })
         .catch((e) => {
