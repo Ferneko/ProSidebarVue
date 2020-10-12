@@ -43,8 +43,37 @@
 
         <div class="sidebar-menu">
           <ul>
+             <itemMenu
+             
+              texto="Meus Projetos"
+              path="/"
+              icone="fa fa-project-diagram"
+              
+            />
+          
+             <itemMenu
+             
+              texto="Projetos"
+              path="/Projetos"
+              icone="fa fa-project-diagram"
+              
+            />
            
-            <itemMenu
+             <itemMenu
+             
+              texto="Tarefas"
+              path="/Tarefas"
+              icone="fa fa-tasks"
+              
+            />
+             <itemMenu
+             
+              texto="Relatórios"
+              path="/Relatorio"
+              icone="fa fa-clipboard"
+              
+            />
+              <itemMenu
               v-if="this.verificaMenu('acessarUsuario')"
               texto="Usuários"
               path="/Usuarios"
@@ -66,33 +95,14 @@
               icone="fa fa-user-cog"
               role="acessarGrupoUsuario"
             />
-             <itemMenu
-             
-              texto="Projetos"
-              path="/Projetos"
-              icone="fa fa-project-diagram"
-              
-            />
-             <itemMenu
-             
-              texto="Meus Projetos"
-              path="/"
-              icone="fa fa-project-diagram"
-              
-            />
-             <itemMenu
-             
-              texto="Tarefas"
-              path="/Tarefas"
-              icone="fa fa-tasks"
-              
-            />
+
           </ul>
         </div>
         <!-- sidebar-menu  -->
       </div>
       <!-- sidebar-content  -->
       <div class="sidebar-footer">
+         <!--
         <a href="#">
           <i class="fa fa-bell"></i>
           <span class="badge badge-pill badge-warning notification">3</span>
@@ -104,8 +114,8 @@
         <a href="#">
           <i class="fa fa-cog"></i>
           <span class="badge-sonar"></span>
-        </a>
-        <a href="#">
+        </a> -->
+        <a  @click="logoff" title="Sair do Sistema" >
           <i class="fa fa-power-off"></i>
         </a>
       </div>

@@ -50,6 +50,7 @@
                 <th>Projeto</th>
                 <th></th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody v-if="this.dados.length >= 1">
@@ -74,6 +75,20 @@
                   <button class="btn btn-danger" @click="excluir(item)">
                     <i class="fa fa-trash"> </i> Excluir
                   </button>
+                </td>
+                
+                 <td v-if="item.concluida">
+                  <button class="btn btn-success" @click="reabrir(item)">
+                    <i class="fa fa-check"> </i> Reabrir
+                  </button>
+
+                  
+                </td>
+                  <td v-else>
+                     <button  class="btn btn-primary" @click="concluir(item)">
+                    <i class="fa fa-check"> </i>  Concluir
+                  </button>
+                
                 </td>
               </tr>
             </tbody>
@@ -171,6 +186,39 @@ export default {
           this.mensagem = error;
         });
     },
+    reabrir(item){
+      Conexao.put("/Tarefas/Reabrir", { id: item.id })
+        .then((response) => {
+          if (response.data.isOk) {
+            item.concluida = response.data.dados.concluida;
+          } else {
+            this.isOk = true;
+            this.mensagem = response.data.mensagem;
+          }
+        })
+        .catch((e) => {
+          this.erro = true;
+          this.mensagem = "Catch: " + e;
+        });
+
+    },
+    concluir(item){
+ Conexao.put("/Tarefas/concluir", { id: item.id })
+        .then((response) => {
+          if (response.data.isOk) {
+            item.concluida = response.data.dados.concluida;
+          } else {
+            this.isOk = true;
+            this.mensagem = response.data.mensagem;
+          }
+        })
+        .catch((e) => {
+          this.erro = true;
+          this.mensagem = "Catch: " + e;
+        });
+
+    }
+
   },
 };
 </script>

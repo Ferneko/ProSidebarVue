@@ -12,6 +12,7 @@ import ProjetosEditar from '../views/edit/ProjetosEditar.vue'
 import TarefaCadastro from '../views/create/TarefaCadastro.vue'
 import TarefaEditar from '../views/edit/TarefaEditar.vue'
 
+import Relatorios from '../views/list/Relatorios.vue'
 import Tarefas from '../views/list/Tarefas.vue'
 import GrupoUsuario from '../views/list/GrupoUsuario.vue'
 import UsuarioNovo from '../views/create/UsuarioNovo.vue'
@@ -47,6 +48,25 @@ const routes = [
       } else {
         next('/login');
       }
+    }
+  },
+  
+  {
+    path: '/Relatorios',
+    name: 'Relatorios',
+    component: Relatorios,
+    beforeEnter(to, from, next) {
+      /*
+      if (TemToken()) {
+        if (TemAutorizacao("acessarUsuario")) {
+          next();
+        }else{
+          next("/NaoAutorizado");
+        }
+      } else {
+        next('/login');
+      }
+      */ next();
     }
   },
   {
