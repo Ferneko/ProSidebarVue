@@ -1,14 +1,12 @@
 <template>
   <Layout>
-    <div class="row">
-      <div class="col-12">
+   
         <div class="card">
-        
-          <div class="card-body">
-            <div class="row">
+        <div class="card-header">
+           <div class="row">
               <div class="col-3">
                 <router-link to="/GrupoUsuario/Novo" class="btn btn-success">
-                  Novo Grupo Usuário
+                  Novo Grupo
                 </router-link>
               </div>
               <div class="col-9">
@@ -35,15 +33,13 @@
                 </div>
               </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-    <br />
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body">
+          
+           
+              <div class="alert alert-danger offset-md-3 col-md-7" v-if="this.erro == true">
+                {{ this.mensagem }}
+              </div>
+           
             <table class="table table-hover table-striped table-sm">
               <thead class="thead-dark">
                 <tr>
@@ -76,7 +72,7 @@
                   </td>
                   <td>
                     <button class="btn btn-danger" @click="excluir(item)">
-                      Excluir
+                     <i class="fa fa-trash" ></i>  Excluir
                     </button>
                   </td>
                 </tr>
@@ -87,10 +83,11 @@
                 </tr>
               </tbody>
             </table>
-          </div>
+         
         </div>
-      </div>
-    </div>
+    
+   
+   
   </Layout>
 </template>
 
@@ -127,7 +124,7 @@ export default {
       }
     },
     excluir(item) {
-      console.log("teste");
+      
       Conexao.delete("/GrupoUsuario/" + item.id)
         .then((resposta) => {
           if (resposta.data.isOk) {
@@ -138,7 +135,8 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+           this.erro = true;
+            this.mensagem = error;
         });
     },
     startData() {

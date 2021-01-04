@@ -40,6 +40,7 @@
                       name="senha"
                       required
                       v-model="senha"
+                      v-on:keyup.enter="validacao"
                     />
                   </div>
                 </div>

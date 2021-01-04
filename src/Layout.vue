@@ -44,7 +44,6 @@
         <div class="sidebar-menu">
           <ul>
              <itemMenu
-             
               texto="Meus Projetos"
               path="/"
               icone="fa fa-project-diagram"
@@ -52,7 +51,7 @@
             />
           
              <itemMenu
-             
+              v-if="this.verificaMenu('AcessarProjetos')"
               texto="Projetos"
               path="/Projetos"
               icone="fa fa-project-diagram"
@@ -60,40 +59,37 @@
             />
            
              <itemMenu
-             
+              v-if="this.verificaMenu('AcessarTarefas')"
               texto="Tarefas"
               path="/Tarefas"
               icone="fa fa-tasks"
               
             />
              <itemMenu
-             
+              v-if="this.verificaMenu('AcessarRelatorios')"
               texto="Relatórios"
-              path="/Relatorio"
+              path="/Relatorios"
               icone="fa fa-clipboard"
               
             />
               <itemMenu
-              v-if="this.verificaMenu('acessarUsuario')"
+              v-if="this.verificaMenu('AcessarUsuarios')"
               texto="Usuários"
               path="/Usuarios"
               icone="fa fa-user"
             />
            
-           
             <itemMenu
-             v-if="this.verificaMenu('acessarPermissao')"
+             v-if="this.verificaMenu('AcessarPermissao')"
               texto="Permissões"
               path="/Permissao"
               icone="fa fa-user-cog"
-              role="acessarPermissao"
             />
             <itemMenu
-             v-if="this.verificaMenu('acessarGrupoUsuario')"
+             v-if="this.verificaMenu('AcessarGrupoUsuario')"
               texto="Grupos de Usuários"
               path="/GrupoUsuario"
               icone="fa fa-user-cog"
-              role="acessarGrupoUsuario"
             />
 
           </ul>

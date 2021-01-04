@@ -9,8 +9,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-2"></div>
-          <div class="col-8">
+          <div class="col-12">
             <div class="row">
               <div class="form-group col-md-12">
                 <label>Nome do Projeto</label>
@@ -19,20 +18,21 @@
             </div>
             <div class="row">
               <div class="form-group col-md-6">
-                <label>Data de Início</label>
+                <label>Data de Início</label><br />
                 <b-calendar v-model="inicio" locale="pt-BR"></b-calendar>
               </div>
               <div class="form-group col-md-6">
                 <label
                   >Data de Término
                   <button
+                    style="margin: 0 10px"
                     v-if="termino != ''"
                     class="btn btn-primary btn-sm"
                     v-on:click="termino = ''"
                   >
                     Sem data
                   </button></label
-                >
+                > <br />
                 <b-calendar
                   v-model="termino"
                   :min="this.inicio"

@@ -132,7 +132,8 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          this.erro = true;
+            this.mensagem = error;
         });
     },
     startData() {

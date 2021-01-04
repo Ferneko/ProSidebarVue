@@ -8,7 +8,7 @@
     <div v-if="this.dados.length >= 1">
      
     <div class="card" v-for="(item, i) in this.dados" :key="i">
-      <div class="card-header">Projeto: {{ item.projeto.nome }}</div>
+      <div class="card-header bg-info text-white">Projeto: {{ item.projeto.nome }}</div>
      
         <table class="table table-hover table-striped table-sm">
           <thead class="thead-dark">
@@ -16,7 +16,7 @@
               <th>Código</th>
               <th>Nome</th>
               <th>Descrição</th>
-              <th>Horas</th>
+              <th>Horas Atribuídas</th>
               <th></th>
             
               <th></th>
@@ -52,7 +52,7 @@
           </tbody>
           <tbody v-else>
             <tr>
-              <td colspan="7">Nenhuma tarefa atribuida</td>
+              <td colspan="7">Nenhuma tarefa atribuída</td>
             </tr>
           </tbody>
         </table>

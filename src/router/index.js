@@ -13,6 +13,7 @@ import TarefaCadastro from '../views/create/TarefaCadastro.vue'
 import TarefaEditar from '../views/edit/TarefaEditar.vue'
 
 import Relatorios from '../views/list/Relatorios.vue'
+import RegistroEditar from '../views/edit/RegistroEditar.vue'
 import Tarefas from '../views/list/Tarefas.vue'
 import GrupoUsuario from '../views/list/GrupoUsuario.vue'
 import UsuarioNovo from '../views/create/UsuarioNovo.vue'
@@ -25,7 +26,7 @@ import GrupoUsuarioEditar from '../views/edit/GrupoUsuarioEditar.vue'
 import PermissaoEditar from '../views/edit/PermissaoEditar.vue'
 import Login from '../views/Login.vue'
 import trocarSenha from '../views/perfil/trocarSenha.vue'
-import NaoAutorizado from '../views/NaoAutorizado.vue'
+
 
 
 Vue.use(VueRouter)
@@ -43,7 +44,6 @@ const routes = [
     beforeEnter(to, from, next) {
 
       if (TemToken()) {
-
         next();
       } else {
         next('/login');
@@ -56,17 +56,32 @@ const routes = [
     name: 'Relatorios',
     component: Relatorios,
     beforeEnter(to, from, next) {
-      /*
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("AcessarRelatorios")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+
+    }
+  },
+  {
+    path: '/Registros/Editar/:id',
+    name: 'Registros/Editar',
+    component: RegistroEditar,
+    beforeEnter(to, from, next) {
+      if (TemToken()) {
+        if (TemAutorizacao("EditarRegistro")) {
+          next();
+        }else{
+          alert("Sem permissão para acessar.")
+        }
+      } else {
+        next('/login');
+      }
     }
   },
   {
@@ -74,17 +89,17 @@ const routes = [
     name: 'Projetos',
     component: Projetos,
     beforeEnter(to, from, next) {
-      /*
+     
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("AcessarProjetos")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+      
     }
   },
   {
@@ -92,17 +107,17 @@ const routes = [
     name: 'Projetos/Novo',
     component: ProjetosNovo,
     beforeEnter(to, from, next) {
-      /*
+      
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("CadastrarProjeto")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+      
     }
   },
   {
@@ -110,17 +125,17 @@ const routes = [
     name: 'Projetos/Editar',
     component: ProjetosEditar,
     beforeEnter(to, from, next) {
-      /*
+     
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("EditarProjeto")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+     
     }
   },
 
@@ -129,17 +144,17 @@ const routes = [
     name: 'Tarefas',
     component: Tarefas,
     beforeEnter(to, from, next) {
-      /*
+      
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("ListarTarefasProjeto")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+      
     }
   },
   {
@@ -147,17 +162,17 @@ const routes = [
     name: 'Tarefas/',
     component: Tarefas,
     beforeEnter(to, from, next) {
-      /*
+      
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("AcessarTarefas")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+       next();
     }
   },
   {
@@ -165,17 +180,17 @@ const routes = [
     name: 'Tarefas/Nova',
     component: TarefaCadastro,
     beforeEnter(to, from, next) {
-      /*
+     
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("CadastrarTarefa")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+      
     }
   },
   {
@@ -183,17 +198,17 @@ const routes = [
     name: 'Tarefas/Editar',
     component: TarefaEditar,
     beforeEnter(to, from, next) {
-      /*
+      
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("EditarTarefa")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+      
     }
   },
   {
@@ -201,17 +216,17 @@ const routes = [
     name: 'Tarefas/Projeto/Novo',
     component: TarefaCadastro,
     beforeEnter(to, from, next) {
-      /*
+     
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("CadastrarTarefa")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+      
     }
   },
   {
@@ -220,10 +235,10 @@ const routes = [
     component: Usuarios,
     beforeEnter(to, from, next) {
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("AcessarUsuarios")) {
           next();
         } else {
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
@@ -236,10 +251,10 @@ const routes = [
     component: EditarSenhaUsuario,
     beforeEnter(to, from, next) {
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("AlterarSenhaUsuario")) {
           next();
         } else {
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
@@ -251,17 +266,17 @@ const routes = [
     name: 'GrupoUsuario/Novo',
     component: GrupoUsuarioCadastro,
     beforeEnter(to, from, next) {
-      /*
+      
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("CadastrarGrupoUsuario")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+      
     }
   },
   {
@@ -269,17 +284,17 @@ const routes = [
     name: 'GrupoUsuario/Editar',
     component: GrupoUsuarioEditar,
     beforeEnter(to, from, next) {
-      /*
+      
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("EditarGrupoUsuario")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+      
     }
   },
   {
@@ -287,17 +302,17 @@ const routes = [
     name: 'Permissao/Novo',
     component: PermissaoCadastro,
     beforeEnter(to, from, next) {
-      /*
+      
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("CadastrarPermissao")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+      
     }
   },
   {
@@ -305,17 +320,17 @@ const routes = [
     name: 'Permissao/Editar',
     component: PermissaoEditar,
     beforeEnter(to, from, next) {
-      /*
+      
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("EditarPermissao")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */ next();
+      
     }
   },
   {
@@ -323,17 +338,17 @@ const routes = [
     name: 'PermissõesUsuário',
     component: PermissaoUsuario,
     beforeEnter(to, from, next) {
-      /*
+      
       if (TemToken()) {
-        if (TemAutorizacao("acessarPermissaoUsuario")) {
+        if (TemAutorizacao("AtribuirPermissaoUsuario")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */next();
+      
     }
   },
 
@@ -342,17 +357,17 @@ const routes = [
     name: 'Usuario/GrupoUsuario',
     component: UsuarioGrupoUsuario,
     beforeEnter(to, from, next) {
-      /*
+      
       if (TemToken()) {
-        if (TemAutorizacao("acessarPermissaoUsuario")) {
+        if (TemAutorizacao("AtribuirUsuarioGrupoUsuario")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */next();
+      
     }
   },
   {
@@ -360,17 +375,17 @@ const routes = [
     name: 'Permissões/GrupoUsuário',
     component: PermissoesGrupoUsuario,
     beforeEnter(to, from, next) {
-      /*
+     
       if (TemToken()) {
-        if (TemAutorizacao("acessarPermissaoUsuario")) {
+        if (TemAutorizacao("AtribuirPermissaoGrupoUsuario")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */next();
+     
     }
   },
   {
@@ -378,17 +393,11 @@ const routes = [
     name: 'Trocar Senha',
     component: trocarSenha,
     beforeEnter(to, from, next) {
-      /*
       if (TemToken()) {
-        if (TemAutorizacao("novoUsuario")) {
-          next();
-        }else{
-          next("/NaoAutorizado");
-        }
+       next()
       } else {
         next('/login');
       }
-      */next();
     }
   },
   {
@@ -396,17 +405,17 @@ const routes = [
     name: 'Usuarios/Novo',
     component: UsuarioNovo,
     beforeEnter(to, from, next) {
-      /*
+     
       if (TemToken()) {
-        if (TemAutorizacao("novoUsuario")) {
+        if (TemAutorizacao("CadastrarUsuario")) {
           next();
         }else{
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
       }
-      */next();
+      
     }
   },
   {
@@ -415,10 +424,10 @@ const routes = [
     component: UsuarioEditar,
     beforeEnter(to, from, next) {
       if (TemToken()) {
-        if (TemAutorizacao("acessarUsuario")) {
+        if (TemAutorizacao("EditarUsuario")) {
           next();
         } else {
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
@@ -431,10 +440,10 @@ const routes = [
     component: Permissao,
     beforeEnter(to, from, next) {
       if (TemToken()) {
-        if (TemAutorizacao("acessarPermissao")) {
+        if (TemAutorizacao("AcessarPermissao")) {
           next();
         } else {
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
@@ -447,10 +456,10 @@ const routes = [
     component: GrupoUsuario,
     beforeEnter(to, from, next) {
       if (TemToken()) {
-        if (TemAutorizacao("acessarGrupoUsuario")) {
+        if (TemAutorizacao("AcessarGrupoUsuario")) {
           next();
         } else {
-          next("/NaoAutorizado");
+          alert("Sem permissão para acessar.")
         }
       } else {
         next('/login');
@@ -458,30 +467,20 @@ const routes = [
     }
   },
 
-  {
-    path: '/NaoAutorizado',
-    name: 'NaoAutorizado',
-    component: NaoAutorizado,
-    beforeEnter(to, from, next) {
-      if (TemToken()) {
-        next();
-      } else {
-        next('/login');
-      }
-    }
-  },
+ 
 ]
 
 function TemToken() {
   if (sessionStorage.getItem("TokenJWT") === null) {
-    //console.log("Não Tem Token")
+    
     return false;
   } else {
 
-    //console.log("Tem Token")
+    
     return true;
   }
 }
+
 
 function TemAutorizacao(role) {
   //console.log(sessionStorage.getItem(role)+" teste");
@@ -509,18 +508,25 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   //console.log(TemToken());
-  if (TemToken()) {
-    if (to.path.toLowerCase() == '/login') {
+  if (TemToken()) 
+  {
+    if (to.path.toLowerCase() == '/login') 
+    {
         next('/')
-    }else{
+    }
+    else
+    {
         next()
     }
   }
-
-  else {
-    if (to.path == '/login') {
+  else
+  {
+    if (to.path == '/login') 
+    {
       next();
-    } else {
+    } 
+    else 
+    {
       next('/login');
     }
   }

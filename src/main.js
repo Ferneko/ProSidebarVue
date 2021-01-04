@@ -16,7 +16,14 @@ Vue.use(IconsPlugin)
 
 Vue.filter('formatDate', function(value) {
   if (value) {
-    return moment(String(value)).format('DD/MM/YYYY')
+    return moment(String(value)).format('DD/MM/YYYY hh:mm')
+  }
+});
+
+Vue.filter('doubleToDate', function(value) {
+  if (value) {
+    var date = new Date(value * 1000);
+    return moment(value).format('hh:mm')
   }
 });
 
