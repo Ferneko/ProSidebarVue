@@ -47,7 +47,6 @@
           </div>
           <div class="col-4">
             <div class="form-group col-md-12">
-              
               <button class="btn btn-success" @click="validacao()">
                 <i class="fa fa-search"></i> Filtrar
               </button>
@@ -91,7 +90,7 @@
                   <td>{{ item.tarefa.nome }}</td>
                   <td>{{ item.tarefa.descricao }}</td>
                   <td>{{ item.tarefa.duracaoHoras }}</td>
-                  <td>{{ item.horasTrabalhadas.toFixed(2) }}</td>
+                  <td>{{ item.horasTrabalhadas.toFixed(2) }} ( {{item.horasConvertidas}} )</td>
                   <td>
                     <b-button
                       id="show-btn"
@@ -127,8 +126,18 @@
             <td>{{ item.tarefa.nome }}</td>
             <td>{{ item.play | formatDate }}</td>
             <td>{{ item.stop | formatDate }}</td>
-            <td><button class="btn btn-danger" @click="excluir(item)"><i class="fa fa-trash"></i>  Excluir</button></td>
-            <td><router-link class="btn btn-warning" :to="'/Registros/Editar/'+item.id"><i class="fa fa-edit"></i>  Editar</router-link></td>
+            <td>
+              <button class="btn btn-danger" @click="excluir(item)">
+                <i class="fa fa-trash"></i> Excluir
+              </button>
+            </td>
+            <td>
+              <router-link
+                class="btn btn-warning"
+                :to="'/Registros/Editar/' + item.id"
+                ><i class="fa fa-edit"></i> Editar</router-link
+              >
+            </td>
           </tr>
         </tbody>
         <tbody v-else>
@@ -209,7 +218,6 @@ export default {
         });
     },
     pesquisarUsuario() {
-
       if (this.queryUsuario == "") {
         this.usuarioIdSelecionado = 0;
         this.todosUsuarios = this.getTodosUsuarios();
@@ -230,8 +238,8 @@ export default {
       }
     },
     pesquisarProjeto() {
-       if (this.queryProjeto == "") {
-         this.projetoIdSelecionado = 0;
+      if (this.queryProjeto == "") {
+        this.projetoIdSelecionado = 0;
         this.todosProjetos = this.getTodosProjetos();
       } else {
         Conexao.get("/Relatorios/pesquisarProjeto/" + this.queryProjeto)
@@ -271,6 +279,7 @@ export default {
         });
     },
     validacao() {
+      
       this.erro = false;
       this.mensagem = "";
       if (this.usuarioIdSelecionado == 0) {
@@ -287,6 +296,7 @@ export default {
         this.erro = true;
         this.mensagem = "Por favor selecione uma data final";
       }*/ else {
+        this.itensTabela = [];
         this.buscar();
       }
     },
@@ -294,7 +304,7 @@ export default {
       Conexao.delete("/Registros/" + item.id)
         .then((resposta) => {
           if (resposta.data.isOk) {
-            this.hideModal() ;
+            this.hideModal();
             this.buscar();
           } else {
             this.erro = true;
@@ -305,6 +315,11 @@ export default {
           this.erro = true;
           this.mensagem = error;
         });
+    },
+    doubleToTime(num) {
+      var hours = num.split('.')[0];
+      var minutes = num.split('.')[1] * 60;
+      return hours + ":" + minutes;
     },
   },
 };

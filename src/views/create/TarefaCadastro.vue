@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <div class="card">
-      <div class="card-header">Nova Tarefa {{this.nome}} {{this.descricao}} {{this.projetoId}} Z {{this.usuarioId}} {{this.duracaoHoras}}</div>
+      <div class="card-header">Nova Tarefa</div>
       <div class="card-body">
         <div class="form-group row" v-if="this.erro">
           <div class="alert alert-danger col-12">
@@ -19,7 +19,11 @@
 
               <div class="form-group col-md-12">
                 <label>Descrição</label>
-                <textarea style="height:150px" class="form-control" v-model="descricao" ></textarea>
+                <textarea
+                  style="height: 150px"
+                  class="form-control"
+                  v-model="descricao"
+                ></textarea>
               </div>
 
               <div class="form-group col-md-12">
@@ -36,12 +40,17 @@
           </div>
           <div class="col-6">
             <div class="form-group col-md-12">
-              <label>Responsável</label>
-              <b-form-select
-                v-model="usuarioId"
-                :options="todosUsuarios"
-                :select-size="4"
-              ></b-form-select>
+              <label>Responsáveis</label>
+
+              <div v-for="user in this.todosUsuarios" :key="user.id">
+                <input
+                  type="checkbox"
+                  :value="user.value"
+                  :id="user.text"
+                  v-model="usuarioId"
+                />
+                {{ user.text }}
+              </div>
             </div>
 
             <div
@@ -75,8 +84,8 @@ export default {
       nome: "",
       descricao: "",
       duracaoHoras: 0,
-      usuarioId: 0,
-      projetoId: isNaN(this.$route.params.id) ? '' :this.$route.params.id ,
+      usuarioId: [],
+      projetoId: isNaN(this.$route.params.id) ? "" : this.$route.params.id,
       todosUsuarios: [],
       todosProjetos: [],
       erro: false,
@@ -92,7 +101,13 @@ export default {
   },
   methods: {
     salvar() {
-      Conexao.post("/Tarefas", { nome: this.nome, descricao: this.descricao, duracaoHoras:Number(this.duracaoHoras), projetoId: Number(this.projetoId), usuarioId: Number(this.usuarioId) })
+      Conexao.post("/Tarefas", {
+        nome: this.nome,
+        descricao: this.descricao,
+        duracaoHoras: Number(this.duracaoHoras),
+        projetoId: Number(this.projetoId),
+        listaUsuarios: this.usuarioId,
+      })
         .then((response) => {
           if (response.data.isOk) {
             this.$router.push("/Tarefas");
@@ -120,9 +135,9 @@ export default {
       } else if (this.projetoId < 1) {
         this.erro = true;
         this.mensagem = "Selecione um projeto";
-      } else if (this.usuarioId < 1) {
+      } else if (this.usuarioId.length < 1) {
         this.erro = true;
-        this.mensagem = "Selecione um responsável pela tarefa";
+        this.mensagem = "Selecione pelo menos um responsável pela tarefa";
       } else {
         this.salvar();
       }

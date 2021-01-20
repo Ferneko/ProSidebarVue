@@ -1,5 +1,7 @@
 <template>
+
   <div>
+    <Loader></Loader>
     <main class="login-form">
       <div class="cotainer">
         <div class="row justify-content-center">
@@ -19,6 +21,7 @@
                       id="Login"
                       class="form-control"
                       name="login"
+                       v-on:keyup.enter="setFocus"
                       required
                       autofocus
                       v-model="login"
@@ -38,6 +41,7 @@
                       id="senhaId"
                       class="form-control"
                       name="senha"
+                      ref="camposenha"
                       required
                       v-model="senha"
                       v-on:keyup.enter="validacao"
@@ -102,7 +106,10 @@ export default {
   },
   components: {},
   methods: {
-    logar() {
+    setFocus(){
+      this.$refs.camposenha.focus();
+    },
+     logar() {
       Conexao.post("/Login", { login: this.login, senha: this.senha })
         .then((resposta) => {
           //console.log(resposta);
@@ -120,6 +127,7 @@ export default {
             location.reload();
             //console.log(resposta.data.dados.roles);
             //this.$router.push('/')
+            this.$root.desativarLoader();
           } else {
             this.erro = true;
             this.mensagem = resposta.data.mensagem;
@@ -129,7 +137,8 @@ export default {
           console.log(resposta);
         });
     },
-    validacao() {
+    async validacao() {
+      this.$root.ativarLoader();
       this.erro = false;
       this.mensagem = "";
       if (this.login == "") {
@@ -139,8 +148,9 @@ export default {
         this.erro = true;
         this.mensagem = "Senha não pode estar em branco";
       } else {
-        this.logar();
+        await this.logar();
       }
+       this.$root.desativarLoader();
     },
   },
 };

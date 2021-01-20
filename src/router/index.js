@@ -9,6 +9,7 @@ import UsuarioGrupoUsuario from '../views/list/UsuarioGrupoUsuario.vue'
 import Projetos from '../views/list/Projetos.vue'
 import ProjetosNovo from '../views/create/ProjetosCadastro.vue'
 import ProjetosEditar from '../views/edit/ProjetosEditar.vue'
+import ProjetosTarefas from '../views/list/ProjetosTarefas.vue'
 import TarefaCadastro from '../views/create/TarefaCadastro.vue'
 import TarefaEditar from '../views/edit/TarefaEditar.vue'
 
@@ -140,9 +141,9 @@ const routes = [
   },
 
   {
-    path: '/Tarefas/Projetos/:id',
-    name: 'Tarefas',
-    component: Tarefas,
+    path: '/Projetos/Tarefas/:id',
+    name: 'ProjetosTarefas',
+    component: ProjetosTarefas,
     beforeEnter(to, from, next) {
       
       if (TemToken()) {
@@ -425,9 +426,15 @@ const routes = [
     beforeEnter(to, from, next) {
       if (TemToken()) {
         if (TemAutorizacao("EditarUsuario")) {
+          console.log(to);
+          console.log(from);
+          console.log(next);
           next();
         } else {
           alert("Sem permissão para acessar.")
+          console.log(to);
+          console.log(from);
+          console.log(next);
         }
       } else {
         next('/login');

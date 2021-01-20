@@ -99,7 +99,7 @@ export default {
         });
     },
     startJob(tarefa){
-       Conexao.post("/Registros", { tarefaId: tarefa.id })
+       Conexao.post("/Registros", { tarefaId: tarefa.id, usuarioId: + this.usuarioId })
         .then((response) => {
           if (response.data.isOk) {
             location.reload();

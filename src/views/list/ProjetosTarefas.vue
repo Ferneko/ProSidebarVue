@@ -1,5 +1,7 @@
 <template>
-  <Layout>
+  <div>
+
+       <Layout>
     <div class="card">
       <div class="card-header">
         <div class="row">
@@ -59,7 +61,7 @@
                 <td>{{ item.tarefa.nome }}</td>
                 <td>{{ item.tarefa.descricao }}</td>
                 <td>{{ item.tarefa.duracaoHoras }}</td>
-                <td>| <span v-for="user in item.listaUsuarios" :key="user.id">{{user.nome}} | </span></td>
+               <td>| <span v-for="user in item.listaUsuarios" :key="user.id">{{user.nome}} | </span></td>
                 <td>{{ item.tarefa.projeto.nome }}</td>
                 <td>
                   <router-link
@@ -102,6 +104,7 @@
       </div>
     </div>
   </Layout>
+  </div>
 </template>
 
 <script>
@@ -122,25 +125,12 @@ export default {
   },
   methods: {
     startData() {
-      if (this.$route.params.id == null) {
-        Conexao.get("/Tarefas")
+     
+        Conexao.get("/Projetos/Tarefas/"+this.projetoId)
           .then((resposta) => {
+              console.log(resposta.data)
             if (resposta.data.isOk) {
-              this.dados = resposta.data.dados;
-              //console.log(this.dados);
-            } else {
-              this.mensagem = resposta.data.mensagem;
-              this.erro = true;
-            }
-          })
-          .catch((resposta) => {
-            this.mensagem = resposta.data.mensagem;
-            this.erro = true;
-          });
-      } else {
-        Conexao.get("/Tarefas/Projetos/" + this.id)
-          .then((resposta) => {
-            if (resposta.data.isOk) {
+                
               this.dados = resposta.data.dados;
             } else {
               this.mensagem = resposta.data.mensagem;
@@ -151,12 +141,13 @@ export default {
             this.mensagem = resposta.data.mensagem;
             this.erro = true;
           });
-      }
+     
     },
     pesquisar() {
       if (this.query == "") {
         this.startData();
       } else {
+          /*
         Conexao.get("/Tarefas/PesquisarTarefas/" + this.query)
           .then((resposta) => {
             if (resposta.data.isOk) {
@@ -170,7 +161,9 @@ export default {
             this.erro = true;
             this.mensagem = error;
           });
+           */
       }
+     
     },
     excluir(item) {
       Conexao.delete("/Tarefas/" + item.tarefa.id)
@@ -207,7 +200,7 @@ export default {
  Conexao.put("/Tarefas/concluir", { id: item.tarefa.id })
         .then((response) => {
           if (response.data.isOk) {
-            item.tarefa.concluida = response.data.dados.tarefa.concluida;
+            item.tarefa.concluida = response.data.dados.concluida;
           } else {
             this.isOk = true;
             this.mensagem = response.data.mensagem;

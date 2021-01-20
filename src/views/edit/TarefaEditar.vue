@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <div class="card">
-      <div class="card-header">Nova Tarefa</div>
+      <div class="card-header">Editar Tarefa</div>
       <div class="card-body">
         <div class="form-group row" v-if="this.erro">
           <div class="alert alert-danger col-12">
@@ -42,11 +42,16 @@
             Codigo: {{ this.id }}
             <div class="form-group col-md-12">
               <label>Responsável</label>
-              <b-form-select
-                v-model="usuarioId"
-                :options="todosUsuarios"
-                :select-size="4"
-              ></b-form-select>
+               <div v-for="user in this.todosUsuarios" :key="user.id">
+                <input
+                  type="checkbox"
+                  :value="user.value"
+                  :id="user.text"
+                  v-model="usuarioId"
+                />
+                {{ user.text }}
+              </div>
+            
             </div>
 
             <div class="form-group col-md-12">
@@ -78,7 +83,7 @@ export default {
       nome: "",
       descricao: "",
       duracaoHoras: 0,
-      usuarioId: 0,
+      usuarioId: [],
       projetoId: 0,
       todosUsuarios: [],
       todosProjetos: [],
@@ -96,13 +101,14 @@ export default {
     startData() {
       Conexao.get("/Tarefas/" + this.id)
         .then((resposta) => {
+         
           if (resposta.data.isOk) {
-            this.nome = resposta.data.dados.nome;
-            this.descricao = resposta.data.dados.descricao;
-            this.usuarioId = resposta.data.dados.usuarioId;
-            this.projetoId = resposta.data.dados.projetoId;
-            this.id = resposta.data.dados.id;
-            this.duracaoHoras = resposta.data.dados.duracaoHoras;
+            this.nome = resposta.data.dados.tarefa.nome;
+            this.descricao = resposta.data.dados.tarefa.descricao;
+            this.usuarioId = resposta.data.dados.listaUsuarioId;
+            this.projetoId = resposta.data.dados.tarefa.projetoId;
+            this.id = resposta.data.dados.tarefa.id;
+            this.duracaoHoras = resposta.data.dados.tarefa.duracaoHoras;
             
           } else {
             this.mensagem = resposta.data.mensagem;
@@ -120,7 +126,7 @@ export default {
         descricao: this.descricao,
         duracaoHoras: Number(this.duracaoHoras),
         projetoId: Number(this.projetoId),
-        usuarioId: Number(this.usuarioId),
+        listaUsuarios: this.usuarioId,
         id:this.id
       })
         .then((response) => {

@@ -4,7 +4,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-2">
-            <router-link to="/Usuarios/Novo" class="btn btn-success"
+            <router-link to="/Usuarios/Novo" v-if="TemAutorizacao('CadastrarUsuario')" class="btn btn-success"
               >Novo Usuário</router-link
             >
           </div>
@@ -39,7 +39,7 @@
             <td>{{ item.nome }}</td>
             <td>{{ item.login }}</td>
             <td>
-              <router-link
+              <router-link v-if="TemAutorizacao('EditarUsuario')"
                 :to="{ path: '/Usuarios/Editar/' + item.id }"
                 @click="
                   () => {
@@ -53,7 +53,7 @@
                 Editar
               </router-link>
 
-              <router-link
+              <router-link v-if="TemAutorizacao('AlterarSenhaUsuario')"
                 :to="{ path: '/Usuarios/AlterarSenha/' + item.id }"
                 @click="
                   () => {
@@ -67,7 +67,7 @@
                 Alterar senha
               </router-link>
 
-              <router-link
+              <router-link v-if="TemAutorizacao('AtribuirPermissaoUsuario')"
                 :to="{ path: '/PermissaoUsuario/' + item.id }"
                 class="btn btn-sm btn-info"
                 style="margin: 0 5px"
@@ -75,7 +75,7 @@
                 <i class="pi pi-user-edit" />
                 Permissões
               </router-link>
-              <router-link
+              <router-link v-if="TemAutorizacao('AtribuirUsuarioGrupoUsuario')"
                 :to="{ path: '/UsuarioGrupoUsuario/' + item.id }"
                 class="btn btn-sm btn-info"
                 style="margin: 0 5px"
@@ -102,14 +102,18 @@
                 Ativar
               </div>
 
+              
               <div
                 @click="removerUsuario(item)"
                 class="btn btn-sm btn-danger"
                 style="margin: 0 5px"
+                v-if="TemAutorizacao('ExcluirUsuario')"
               >
                 <i class="pi pi-trash" />
                 Excluir
-              </div>
+              </div> 
+              
+              
             </td>
           </tr>
         </tbody>
@@ -144,6 +148,17 @@ export default {
   },
   components: {},
   methods: {
+    TemAutorizacao(role) {
+      if (sessionStorage.getItem(role) === null) {
+        return false;
+      } else {
+        if (sessionStorage.getItem(role) == role) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    },
     startData() {
       Conexao.get("/Usuarios")
         .then((resposta) => {
