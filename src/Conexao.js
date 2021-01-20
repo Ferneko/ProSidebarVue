@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const HTTP = axios.create({
-  baseURL: 'https://localhost:44333',
+  //baseURL: 'https://localhost:44333',
+  baseURL: 'https://api.mvcsistemas.com.br',
   headers: {
     'Authorization': 'Bearer ' + sessionStorage.getItem("TokenJWT")
   }
@@ -22,7 +23,7 @@ HTTP.interceptors.response.use(function (response) {
  
   return response;
 }, function (error) {
- console.log(error)
+
   if (401 === error.response.status) {
     //sessionStorage.clear();
     //alert("Sessão expirou. Faça o login novamente")

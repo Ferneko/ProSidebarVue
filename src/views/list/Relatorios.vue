@@ -90,7 +90,7 @@
                   <td>{{ item.tarefa.nome }}</td>
                   <td>{{ item.tarefa.descricao }}</td>
                   <td>{{ item.tarefa.duracaoHoras }}</td>
-                  <td>{{ item.horasTrabalhadas.toFixed(2) }} ( {{item.horasConvertidas}} )</td>
+                  <td>{{ item.horasTrabalhadas.toFixed(2) }}</td>
                   <td>
                     <b-button
                       id="show-btn"
